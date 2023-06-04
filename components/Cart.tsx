@@ -2,11 +2,17 @@
 import Image from "next/image"
 import { useCartStore } from "@/store"
 import {IoAddCircle, IoRemoveCircle} from "react-icons/io5";
+import formatPrice from "@/util/PriceFormat";
 
 
 export default function Cart() {
   const cartStore = useCartStore();
   
+  const totalPrice = cartStore.cart.reduce((acc, item) => {
+    return acc +  item.unit_amount * item.quantity;
+  }, 0);
+
+  console.log({totalPrice});
   return (
     <div 
       className="fixed w-full h-screen inset-0 bg-black/25" 
@@ -46,14 +52,27 @@ export default function Cart() {
                   </div>
                 
                 </div>
+                <div >
+                Item Total: {formatPrice(item.unit_amount * item.quantity)}
+              </div>
           
               </div>
+             
             
             </div>
           )
         })}
-
-        <button>Checkout</button>
+      {cartStore.cart.length > 0 ? (
+        <>
+        <p className="mb-6">
+        Cart Total: {formatPrice(totalPrice)}
+        </p>
+        <button className="py-2 bg-teal-700 w-full rounded-md text-white ">Checkout</button>
+        </>
+      ) : (
+        <p>Cart is empty</p>
+      )}
+        
        
       </div>
     </div>
