@@ -7,6 +7,12 @@ const nextConfig = {
         hostname: "lh3.googleusercontent.com",
         port: "",
         pathname: "/a/**"
+      },
+      {
+        protocol: "https",
+        hostname: "files.stripe.com",
+        port: "",
+        pathname: "/links/**"
       }
     ]
   }
