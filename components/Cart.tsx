@@ -4,6 +4,7 @@ import { useCartStore } from "@/store"
 import {IoAddCircle, IoRemoveCircle} from "react-icons/io5";
 import formatPrice from "@/util/PriceFormat";
 import { AnimatePresence, motion } from "framer-motion";
+import Checkout from "./Checkout";
 export default function Cart() {
   const cartStore = useCartStore();
   
@@ -26,6 +27,9 @@ export default function Cart() {
         className="bg-white absolute right-0 top-0 bottom-0 w-11/12 sm:w-9/12 md:w-2/3 lg:w-1/4 h-screen py-12 px-6 overflow-y-scroll drop-shadow-xl">
 
           <p className="mb-12">Your shopping Cart</p>
+          {cartStore.onCheckout === "cart" && (
+            <>
+            {cartStore.onCheckout}
           {cartStore.cart.map((item) => {
        
             return(
@@ -62,6 +66,8 @@ export default function Cart() {
             </motion.div>
           )
         })}
+        </>
+          )}
       {cartStore.cart.length > 0 ? (
         
         <motion.div layout>
@@ -69,8 +75,17 @@ export default function Cart() {
           Cart Total: {formatPrice(totalPrice)}
         </p>
         
+        {cartStore.onCheckout === "cart" && (
+
         
-        <button className="py-2 bg-teal-700 w-full rounded-md text-white">Checkout</button>
+        <button className="py-2 bg-teal-700 w-full rounded-md text-white" onClick={() => cartStore.setCheckout("checkout")}>Checkout</button>
+        )}
+        {cartStore.onCheckout === "checkout" && (
+<>
+   <Checkout />     
+<button className="py-2 border-2 bg-white text-teal-700 border-teal-700 w-full rounded-md " onClick={() => cartStore.setCheckout("cart")}>Back to Cart</button>
+</>
+)}
         </motion.div>
         
       ) : (

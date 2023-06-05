@@ -7,6 +7,8 @@ export const useCartStore = create<CartState>()(
   persist(
     (set) => ({
       cart: [],
+      paymentIntent: "",
+      onCheckout: "cart",
       isOpen: false,
       toggleCart: () => set((state) => ({
         isOpen: !state.isOpen
@@ -21,7 +23,7 @@ export const useCartStore = create<CartState>()(
           const updatedCart = state.cart.map((cartItem) => {
 
             if(cartItem.id === item.id) {
-              return {...cartItem, quantity: cartItem.quantity + 1}
+              return {...cartItem, quantity: cartItem.quantity! + 1}
             }
 
             return cartItem;
@@ -53,7 +55,9 @@ export const useCartStore = create<CartState>()(
             const filteredCart = state.cart.filter((cartItem) => cartItem.id !== item.id);
             return {cart: filteredCart}
           }
-      })
+      }),
+      setPaymentIntent: (val) => set((state) => ({paymentIntent:val})),
+      setCheckout: (val) => set((state) => ({onCheckout: val}))
     }),
     
     { name: "cart-store"}

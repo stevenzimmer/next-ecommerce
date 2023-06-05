@@ -14,7 +14,7 @@ export default async function ProductPage({params}: Props) {
   // console.log({product});
   return (
     <section >
-      <div className="container">
+      <div className="container mx-auto max-w-3xl px-6">
         {/* {params.id} */}
         <Image 
           src={product.image}
