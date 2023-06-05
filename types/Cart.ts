@@ -2,14 +2,14 @@
 export type CartItem = {
   name: string
   id: string
-  images?: string[]
-  unit_amount: number
+  image?: string[]
+  unit_amount: number | null
   quantity: number
 }
 
 export type AddCartType = {
   name: string
-  image: string
+  image?: string
   id: string
   quantity?: number | 1
   unit_amount: number | null
@@ -17,7 +17,7 @@ export type AddCartType = {
 
 export type CartState = {
   isOpen: Boolean
-  cart: CartItem[]
+  cart: AddCartType[]
   toggleCart: () => void
   addProduct: (item:AddCartType) => void
   removeProduct: (item:AddCartType) => void

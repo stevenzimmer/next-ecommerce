@@ -27,7 +27,7 @@ console.log({session});
       <body className={roboto.className}>
         <Hydrate>
         <Nav user={session?.user} expires={session?.expires!} />
-        <main className='p-12'>
+        <main className='py-12'>
           {children}
         </main>
         </Hydrate>
