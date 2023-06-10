@@ -42,7 +42,7 @@ export const useCartStore = create<CartState>()(
         const existingItem = state.cart.find(cartItem => cartItem.id === item.id);
           // console.log({existingItem});
   
-          if(existingItem && existingItem.quantity > 1) {
+          if(existingItem && existingItem.quantity! > 1) {
             const updatedCart = state.cart.map((cartItem) => {
               if(cartItem.id === item.id) {
                 return {...cartItem, quantity: cartItem.quantity! - 1}

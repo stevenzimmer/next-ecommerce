@@ -5,7 +5,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { useCartStore } from "@/store";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-
+import { AnimatePresence, motion } from "framer-motion";
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_TEST_PUBLISHABLE_KEY!);
 
 export default function Checkout() {
@@ -25,17 +25,23 @@ export default function Checkout() {
 
       })
     }).then((res) => {
-      console.log({res});
+      // console.log({res});
       if(res.status === 403) {
         return router.push("/api/auth/signin");
       }
       // Set client secret and payment intent
-      return res.json()
+      return res.json();
+
     }).then((data) => {
       console.log({data});
+      setClientSecret(data.paymentIntent.client_secret);
+      cartStore.setPaymentIntent(data.paymentIntent.id);
     })
   }, [])
   return (
-    <div>Checkout</div>
+
+    <AnimatePresence>
+    <motion.div className="py-2 border-2 text-white bg-teal-700 border-teal-700 w-full rounded-md text-center">Checkout</motion.div>
+    </AnimatePresence>
   )
 }
