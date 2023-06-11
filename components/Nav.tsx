@@ -7,7 +7,8 @@ import Cart from "./Cart";
 import { useCartStore } from "@/store";
 import {AiFillShopping} from "react-icons/ai"
 import {motion, AnimatePresence } from "framer-motion"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
+import { redirect } from "next/navigation";
 export default function Nav({user, expires}:Session) {
   const cartStore = useCartStore();
   return (
@@ -27,6 +28,7 @@ export default function Nav({user, expires}:Session) {
         {user && (
           <>
           <li>
+            <Link href="/dashboard">
             <Image 
               src={user.image!}
               width={32}
@@ -34,10 +36,13 @@ export default function Nav({user, expires}:Session) {
               alt={user.name!}
               className="rounded-full"
             />
+            </Link>
           </li>
           
           <li>
-            <Button className="btn bg-amber-700 border-amber-800 hover:bg-amber-800" onClick={() => signOut()}>Sign Out</Button>
+            <Button className="btn bg-amber-700 border-amber-800 hover:bg-amber-800" onClick={() => {
+              signOut();
+            }}>Sign Out</Button>
           </li>
           </>
 

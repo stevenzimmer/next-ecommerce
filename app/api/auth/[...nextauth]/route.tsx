@@ -19,9 +19,6 @@ export const authOptions: NextAuthOptions = {
 
   events: {
     createUser: async({user}) => {
-      // const stripe = new Stripe(process.env.STRIPE_TEST_SECRET_KEY!, {
-      //   apiVersion: "2022-11-15"
-      // });
       
       // Create customer
       if(user.name && user.email) {
@@ -41,7 +38,8 @@ export const authOptions: NextAuthOptions = {
           }
         })
       }
-    }
+    },
+    
   },
   callbacks: {
     async session({session, token, user}) {

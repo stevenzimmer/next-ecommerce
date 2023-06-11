@@ -6,41 +6,17 @@ import { NextApiRequest, NextApiResponse } from "next"
 
 import { prisma } from "@/lib/prisma"
 import { buffer } from "node:stream/consumers";
-// export const config = {
-//   api: {
-//     bodyParser: false
-//   }
-// };
 
 export async function POST(req: NextApiRequest, res: NextApiResponse) {
   const rawBody = await buffer(req.body);
 
   console.log({rawBody});
 
-  // const request = await req.json();
-  // console.log("request text: ", request.text);
-
   const headersList = headers();
-  // console.log({headersList});
-  // console.log("Headers: ",req.headers);
 
   const sig = headersList.get('stripe-signature');
-  // const sig = req.headers['stripe-signature'];
-  console.log({sig});
 
-  // console.log(req.body)
-  // console.log("text", req.text);
-
-  // console.log("getting buffer");
-
-
-  // const buf = await buffer(req);
-
-    // console.log({buf});
-
-  
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
-  // console.log({endpointSecret}); 
 
   if(!sig) {
     return NextResponse.json({ message: "Missing Stripe Signature" }, {
