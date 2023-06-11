@@ -6,9 +6,9 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from './api/auth/[...nextauth]/route';
 import type { Metadata } from 'next';
 import Hydrate from '@/components/Hydrate';
-
 // const inter = Inter({ subsets: ['latin'] })
-const roboto = Roboto({weight: ["400", "500", "700"], subsets: ["latin"]})
+const roboto = Roboto({weight: ["400", "500", "700"], subsets: ["latin"]});
+import { ToastProvider } from '@/components/ui/toast';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -26,10 +26,10 @@ export default async function RootLayout({
     <html lang="en">
       <body className={roboto.className}>
         <Hydrate>
-        <Nav user={session?.user} expires={session?.expires!} />
-        <main className='py-12'>
-          {children}
-        </main>
+          <Nav user={session?.user} expires={session?.expires!} />
+          <main className='py-12'>
+            {children}
+          </main>
         </Hydrate>
       </body>
     </html>

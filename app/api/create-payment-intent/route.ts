@@ -41,8 +41,8 @@ export async function POST(req: Request) {
   const total = calculateOrderAmount(items);
 
 
-  console.log({items});
-  console.log({payment_intent_id});
+  // console.log({items});
+  // console.log({payment_intent_id});
 
   // Create Order Data
   const orderData = {
@@ -67,20 +67,34 @@ export async function POST(req: Request) {
   }
 
   if( payment_intent_id ) {
-    console.log("Payment Intent ID" );
+    // console.log("Payment Intent ID" );
 
     const current_intent = await stripe.paymentIntents.retrieve(payment_intent_id);
 
     if(current_intent) {
-      console.log("current intent");
+      // console.log("current intent");
 
-      console.log({current_intent});
+      // console.log({current_intent});
+      if(current_intent.status === "succeeded") {
+
+        return NextResponse.json({
+          paymentIntent: current_intent,
+  
+        }, {
+          status: 200
+        });
+        
+      } else {
+
+      
+
+      // console.log("updating intent");
 
       const updated_intent = await stripe.paymentIntents.update(payment_intent_id, {
         amount: total,
       });
 
-      console.log({updated_intent});
+      // console.log({updated_intent});
 
       //Fetch order with product ids
       const [existing_order, updated_order] = await Promise.all([
@@ -106,9 +120,9 @@ export async function POST(req: Request) {
         }),
       ]);
 
-      console.log({existing_order});
+      // console.log({existing_order});
 
-      console.log({updated_order});
+      // console.log({updated_order});
 
       if(!existing_order) {
         return NextResponse.json({
@@ -126,6 +140,8 @@ export async function POST(req: Request) {
         status: 200
       });
 
+    }
+
     } 
   } else {
 
@@ -141,7 +157,7 @@ export async function POST(req: Request) {
       data: orderData
     });
 
-    console.log({newOrder} );
+    // console.log({newOrder} );
 
 
     return NextResponse.json({

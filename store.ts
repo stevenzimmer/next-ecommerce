@@ -15,7 +15,7 @@ export const useCartStore = create<CartState>()(
       })),
       addProduct: (item) => set((state) => {
         const existingItem = state.cart.find(cartItem => cartItem.id === item.id);
-        console.log({existingItem});
+        // console.log({existingItem});
 
 
         if(existingItem) {
@@ -57,7 +57,8 @@ export const useCartStore = create<CartState>()(
           }
       }),
       setPaymentIntent: (val) => set((state) => ({paymentIntent:val})),
-      setCheckout: (val) => set((state) => ({onCheckout: val}))
+      setCheckoutStatus: (val) => set((state) => ({onCheckout: val})),
+      clearCart: () => set((state) => ({ cart: [] })),
     }),
     
     { name: "cart-store"}

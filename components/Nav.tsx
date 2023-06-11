@@ -7,7 +7,7 @@ import Cart from "./Cart";
 import { useCartStore } from "@/store";
 import {AiFillShopping} from "react-icons/ai"
 import {motion, AnimatePresence } from "framer-motion"
-
+import { Button } from "@/components/ui/button"
 export default function Nav({user, expires}:Session) {
   const cartStore = useCartStore();
   return (
@@ -21,7 +21,7 @@ export default function Nav({user, expires}:Session) {
        
         {!user && (
           <li>
-            <button className="btn bg-teal-400 border-teal-500" onClick={() => signIn()}>Sign in</button>
+            <Button className="btn bg-teal-400 border-teal-500 hover:bg-teal-500" onClick={() => signIn()}>Sign in</Button>
           </li>
         )}
         {user && (
@@ -35,7 +35,14 @@ export default function Nav({user, expires}:Session) {
               className="rounded-full"
             />
           </li>
-          <li 
+          
+          <li>
+            <Button className="btn bg-amber-700 border-amber-800 hover:bg-amber-800" onClick={() => signOut()}>Sign Out</Button>
+          </li>
+          </>
+
+        )}
+        <li 
           onClick={() => cartStore.toggleCart()}
           className="text-3xl text-teal-500 flex items-end">
             <AiFillShopping />
@@ -47,11 +54,6 @@ export default function Nav({user, expires}:Session) {
             )}
             </AnimatePresence>
           </li>
-          <li>
-            <button className="btn bg-amber-700 border-amber-800" onClick={() => signOut()}>Sign Out</button>
-          </li>
-          </>
-        )}
       
       </ul>
       

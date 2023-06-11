@@ -24,5 +24,6 @@ export type CartState = {
   paymentIntent: string
   onCheckout: string
   setPaymentIntent: (val: string) => void
-  setCheckout: (val: string) => void
+  setCheckoutStatus: (val: string) => void,
+  clearCart: () => void
 }

@@ -9,7 +9,7 @@ export default async function Home() {
     <main className="container">
       <div className='flex flex-wrap max-w-4xl mx-auto'>
       {products.map((product) => {
-        console.log({product})
+        // console.log({product})
         return (
           <Product key={product.id} {...product} />
         )
